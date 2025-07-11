@@ -2,6 +2,8 @@
     <!-- Sidenav (drawer) -->
     <mat-drawer #drawer class="example-sidenav" mode="side">
       <p>Auto-resizing sidenav</p>
+      <input type='email' [(ngModel)]="user.email" />
+    {{user.email}}
       <button (click)="toggleDrawer()" matButton="elevated">Close Sidenav</button>
     </mat-drawer>
   
@@ -10,5 +12,6 @@
       <lmsx-navbar (toggleSidenav)="toggleDrawer()"></lmsx-navbar>
       <!-- სხვა კონტენტი -->
     </div>
+    
   </mat-drawer-container>
   

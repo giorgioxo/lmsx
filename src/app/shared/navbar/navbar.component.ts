@@ -3,6 +3,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { PrimaryButton } from '../directives/button-directive.directive';
 
 @Component({
   selector: 'lmsx-navbar',
@@ -11,14 +12,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
+    PrimaryButton,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  @Output() toggleSidenav = new EventEmitter<void>(); // EventEmitter, რომელიც გამოტყდება MainLayout-ში
+  @Output() toggleSidenav = new EventEmitter<void>();
 
   openSidenav() {
-    this.toggleSidenav.emit(); // ამით გამოვუშვებთ toggleSidenav-ს MainLayout-ში
+    this.toggleSidenav.emit();
   }
 }
