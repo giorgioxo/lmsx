@@ -1,0 +1,14 @@
+<mat-drawer-container class="example-container" autosize>
+    <!-- Sidenav (drawer) -->
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Auto-resizing sidenav</p>
+      <button (click)="toggleDrawer()" matButton="elevated">Close Sidenav</button>
+    </mat-drawer>
+  
+    <!-- Main content -->
+    <div class="example-sidenav-content">
+      <lmsx-navbar (toggleSidenav)="toggleDrawer()"></lmsx-navbar>
+      <!-- სხვა კონტენტი -->
+    </div>
+  </mat-drawer-container>
+  
