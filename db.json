@@ -7,6 +7,14 @@
         "email": "admin@example.com",
         "role": "admin"
       }
+    ],
+    "notifications":[
+      {
+        "id":1,
+        "message":"some of the message of njotifications",
+        "role":"error",
+        "roleCounter":"404 error"
+      }
     ]
   }
   
