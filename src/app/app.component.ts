@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
+import { LayoutsComponent } from './shared/layouts/layouts.component';
 
 @Component({
   selector: 'lmsx-root',
-  imports: [RouterOutlet, MainLayoutComponent],
+  imports: [LayoutsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
