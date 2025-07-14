@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../../shared/notifications/services/notification.service';
+
+import { IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { eyeOutline, boatOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'lmsx-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, IonIcon],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -19,12 +24,13 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private notification: NotificationService,
-  ) {}
+  ) {
+    addIcons({ eyeOutline, boatOutline });
+  }
 
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: (users) => {
-        console.log(users); // უბრალოდ ლოგი
         if (users.length) {
           this.notification.showSuccess('წარმატებით შეხვედი!');
           this.router.navigate(['/dashboard']);

@@ -2,7 +2,7 @@
 
 // Admin panel ფერები
 const colors = {
-  primary: '#1A73E8', // ლურჯი მთავარი ფერი
+  primary: '#2F7DC2', // ლურჯი მთავარი ფერი
   secondary: '#F3F3F3', // ღია ნაცრისფერი
   accent: '#FF5722', // აქცენტის ფერი
   dark: '#222222', // მუქი ტექსტისთვის
@@ -45,6 +45,10 @@ module.exports = {
       fontWeight: {
         regular: '400',
         bold: '700',
+      },
+      backgroundImage: {
+        'primary-gradient':
+          'linear-gradient(90deg,rgba(6, 20, 48, 1) 0%, rgba(67, 229, 247, 1) 100%)',
       },
     },
   },
