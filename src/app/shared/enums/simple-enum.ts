@@ -1,2 +1,1 @@
-export enum SimpleEnum {
-}
+export enum SimpleEnum {}
