@@ -6,18 +6,24 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../../shared/notifications/services/notification.service';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { eyeOutline, boatOutline, eyeOffOutline } from 'ionicons/icons';
+import { eyeOutline, boatOutline, eyeOffOutline, save } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lmsx-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, IonIcon],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    FormsModule,
+    IonIcon,
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -38,7 +44,19 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      rememberMe: false,
     });
+
+    const savedUsername = localStorage.getItem('savedUsername');
+    const savedPassword = localStorage.getItem('savedPassword');
+
+    if (savedUsername && savedPassword) {
+      this.loginForm.patchValue({
+        username: savedUsername,
+        password: savedPassword,
+        rememberMe: true,
+      });
+    }
   }
 
   login() {
@@ -47,13 +65,21 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const { username, password } = this.loginForm.value;
+    const { username, password, rememberMe } = this.loginForm.value;
 
     this.authService.login(username, password).subscribe({
       next: (users) => {
         if (users.length) {
           this.notification.showSuccess('წარმატებით შეხვედი!');
           this.router.navigate(['/dashboard']);
+
+          if (rememberMe) {
+            localStorage.setItem('savedUsername', username);
+            localStorage.setItem('savedPassword', password);
+          } else {
+            localStorage.removeItem('savedUsername');
+            localStorage.removeItem('savedPassword');
+          }
         } else {
           this.notification.showError('არასწორი მომხმარებელი ან პაროლი');
         }

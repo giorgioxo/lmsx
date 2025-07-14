@@ -21,18 +21,30 @@
             [ngClass]="{'border-red-500': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}"
             />
           <ion-icon
-            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+            [name]="showPassword ? 'eye-outline': 'eye-off-outline'"
             (click)="togglePassword()"
             class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
           ></ion-icon>
+        </div>
+        <div class="flex justify-between">
+          <label class="flex items-center gap-2 cursor-pointer text-sm">
+            <input type="checkbox" formControlName="rememberMe" class="accent-primary" />
+            დაიმახსოვრე მომხარებელი
+            
+          </label>
+          <p class="text-center text-sm">
+              დაგავიწყდა მონაცემები? 
+            <a href="#" class="text-primary hover:underline">აღდგენა</a>
+          </p>
         </div>
         <button type="submit"[disabled]="loginForm.invalid"
         class="bg-primary text-white py-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >შესვლა</button>
       </form>
+      
       <p class="text-center text-sm">
         არ ხარ რეგისტრირებული?
-        <a href="#" class="text-primary hover:underline">დარეგისტრირდი</a>
+        <a [routerLink]="'/register'" class="text-primary cursor-pointer hover:underline">დარეგისტრირდი</a>
       </p>
     </div>
   </div>
@@ -46,9 +58,7 @@
         <rect x="40" y="26" width="6" height="16" rx="2" fill="#2F7DC2"/>
       </svg>
     </div>
-    <span class="text-white text-xl">არასდროს არ დანებდე!</span>
-   
-    
-    
+    <span class="text-white text-xl"> იზიიიიი რამე დევიზიიიიი </span>
+
   </div>
 </div>
