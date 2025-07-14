@@ -47,15 +47,16 @@ export class LoginComponent implements OnInit {
       rememberMe: false,
     });
 
-    const savedUsername = localStorage.getItem('savedUsername');
-    const savedPassword = localStorage.getItem('savedPassword');
-
-    if (savedUsername && savedPassword) {
-      this.loginForm.patchValue({
-        username: savedUsername,
-        password: savedPassword,
-        rememberMe: true,
-      });
+    if (typeof window !== 'undefined' && localStorage) {
+      const savedUsername = localStorage.getItem('savedUsername');
+      const savedPassword = localStorage.getItem('savedPassword');
+      if (savedUsername && savedPassword) {
+        this.loginForm.patchValue({
+          username: savedUsername,
+          password: savedPassword,
+          rememberMe: true,
+        });
+      }
     }
   }
 
