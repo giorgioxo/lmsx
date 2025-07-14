@@ -1,4 +1,11 @@
-<p>notification works!</p>
-<div *ngIf="notification" [ngClass]="notification.type">
+<div 
+  *ngIf="notification" 
+  class="fixed top-5 right-5 z-50 px-4 py-2 rounded shadow text-white"
+  [ngClass]="{
+    'bg-green-500': notification.type === 'success',
+    'bg-red-500': notification.type === 'error',
+    'bg-blue-500': notification.type === 'info'
+  }"
+>
   {{ notification.message }}
 </div>

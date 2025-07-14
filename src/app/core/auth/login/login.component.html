@@ -2,29 +2,37 @@
 
   <div class="flex w-1/2 items-center justify-center">
     <div class="w-1/2 max-w-md space-y-6">
-      <h1 class="text-2xl font-semibold text-center">Sign In</h1>
-      <form class="flex flex-col gap-4 " (ngSubmit)="login()">
+      <h1 class="text-2xl font-semibold text-center">შესვლა</h1>
+      <form class="flex flex-col gap-4 " (ngSubmit)="login()" [formGroup]="loginForm">
         <input
           type="text"
-          placeholder="Username"
-          class="border p-2 rounded-xl"
+          placeholder="მომხმარებელი"
+          formControlName="username"
+          class="border border-solid p-2 rounded-xl focus:outline-none focus:ring-0"
+          [ngClass]="{'border-red-500': loginForm.get('username')?.touched && loginForm.get('username')?.invalid}"
+
         />
         <div class="relative">
           <input
-            type="password"
-            placeholder="Password"
-            class="border p-2 rounded-xl w-full"
-          />
+            formControlName="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="პაროლი"
+            class="border border-solid p-2 rounded-xl w-full focus:outline-none focus:ring-0"
+            [ngClass]="{'border-red-500': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}"
+            />
           <ion-icon
-            name="eye-outline"
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+            (click)="togglePassword()"
             class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
           ></ion-icon>
         </div>
-        <button type="submit" class="bg-primary text-white py-2 rounded-xl">Login</button>
+        <button type="submit"[disabled]="loginForm.invalid"
+        class="bg-primary text-white py-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+        >შესვლა</button>
       </form>
       <p class="text-center text-sm">
-        Don’t have an account?
-        <a href="#" class="text-brand-500 hover:underline">Sign Up</a>
+        არ ხარ რეგისტრირებული?
+        <a href="#" class="text-primary hover:underline">დარეგისტრირდი</a>
       </p>
     </div>
   </div>
@@ -38,7 +46,7 @@
         <rect x="40" y="26" width="6" height="16" rx="2" fill="#2F7DC2"/>
       </svg>
     </div>
-    <span class="text-white text-xl">Follow Your Steps</span>
+    <span class="text-white text-xl">არასდროს არ დანებდე!</span>
    
     
     

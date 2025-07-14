@@ -13,9 +13,8 @@ export class NotificationComponent {
   notification: { message: string; type: string } | null = null;
 
   constructor(private notificationService: NotificationService) {
-    this.notificationService.notifications$.subscribe((n) => {
-      this.notification = n;
-      // ავტომატურად გაქრეს 3 წამში
+    this.notificationService.notifications$.subscribe((notification) => {
+      this.notification = notification;
       setTimeout(() => (this.notification = null), 3000);
     });
   }
