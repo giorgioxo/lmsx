@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../../shared/notifications/services/notification.service';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { eyeOutline, boatOutline, eyeOffOutline, save } from 'ionicons/icons';
+import { eyeOutline, boatOutline, eyeOffOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 
 @Component({

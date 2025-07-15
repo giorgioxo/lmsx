@@ -1,16 +1,25 @@
 {
   "users": [
     {
-      "id": 1,
-      "username": "admin",
-      "password": "admin123",
-      "email": "admin@example.com",
-      "role": "admin"
+      "id": "1",
+      "firstName": "jorj",
+      "lastName": "jorjika",
+      "username": "jorj1",
+      "email": "jorj1@hm.com",
+      "password": "jorj123321"
+    },
+    {
+      "id": "1815",
+      "firstName": "giorgi",
+      "lastName": "khokhonishvili",
+      "username": "gx",
+      "email": "gx@gx.com",
+      "password": "gx123"
     }
   ],
   "notifications": [
     {
-      "id": 1,
+      "id": "1",
       "message": "some of the message of njotifications",
       "role": "error",
       "roleCounter": "404 error"

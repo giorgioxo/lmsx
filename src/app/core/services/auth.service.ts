@@ -2,17 +2,18 @@ import { Injectable, viewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { UserRegister } from '../models/auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private currentUserKey = 'currentUser';
-
+  private baseUrl = 'http://localhost:3000/';
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
     return this.http
       .get<any>(
-        `http://localhost:3000/users?username=${username}&password=${password}`,
+        `${this.baseUrl}users?username=${username}&password=${password}`,
       )
       .pipe(
         tap((users) => {
@@ -35,5 +36,9 @@ export class AuthService {
   getCurrentUser() {
     const userJson = localStorage.getItem(this.currentUserKey);
     return userJson ? JSON.parse(userJson) : null;
+  }
+
+  register(user: UserRegister): Observable<UserRegister> {
+    return this.http.post<UserRegister>(`${this.baseUrl}users`, user);
   }
 }
