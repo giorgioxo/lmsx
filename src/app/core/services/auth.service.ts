@@ -1,7 +1,7 @@
 import { Injectable, viewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { UserRegister } from '../models/auth.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -40,5 +40,17 @@ export class AuthService {
 
   register(user: UserRegister): Observable<UserRegister> {
     return this.http.post<UserRegister>(`${this.baseUrl}users`, user);
+  }
+
+  checkUsernameExists(username: string): Observable<boolean> {
+    return this.http
+      .get<any[]>(`http://localhost:3000/users?username=${username}`)
+      .pipe(map((users) => users.length > 0));
+  }
+
+  checkEmailExists(email: string): Observable<boolean> {
+    return this.http
+      .get<any[]>(`http://localhost:3000/users?email=${email}`)
+      .pipe(map((users) => users.length > 0));
   }
 }
