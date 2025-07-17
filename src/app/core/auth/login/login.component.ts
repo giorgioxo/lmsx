@@ -13,6 +13,7 @@ import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { eyeOutline, boatOutline, eyeOffOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
+import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
 
 @Component({
   selector: 'lmsx-login',
@@ -23,13 +24,21 @@ import { CommonModule } from '@angular/common';
     RouterModule,
     FormsModule,
     IonIcon,
+    DialogsComponent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  showPassword = false;
+  showPassword: boolean = false;
+
+  step: 'verifyUser' | 'verifyOtp' | 'resetPassword' = 'verifyUser';
+  showRecovery: boolean = false;
+  usernameOrEmail = '';
+  otpCode = '';
+  newPassword = '';
+  confirmPassword = '';
 
   constructor(
     private fb: FormBuilder,
@@ -94,5 +103,56 @@ export class LoginComponent implements OnInit {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  checkUser() {
+    if (!this.usernameOrEmail) {
+      this.notification.showError('შეიყვანე მომხარებელი ან ელფოსტა სწორად');
+      return;
+    }
+    const isEmail = this.usernameOrEmail.includes('@');
+    const check$ = isEmail
+      ? this.authService.checkEmailExists(this.usernameOrEmail)
+      : this.authService.checkUsernameExists(this.usernameOrEmail);
+
+    check$.subscribe((exists) => {
+      if (exists) {
+        this.notification.showSuccess('კოდი გაიგზავნა ელფოსტაზე');
+        // TODO აქ უნდა გავწერო otp call ფლოუ შემდეგში... რამე ბიბლიოთეკის გამოყენებით
+        this.step = 'verifyOtp';
+      } else {
+        this.notification.showError('მომხარებელი არ მოიძებნა');
+      }
+    });
+  }
+
+  verifyOtp() {
+    const correctOtp = '1121';
+    if (this.otpCode === correctOtp) {
+      this.notification.showSuccess('კოდი სწორია');
+      this.step = 'resetPassword';
+    } else {
+      this.notification.showError('კოდი არასწორია');
+    }
+  }
+
+  submitNewPassword() {
+    if (!this.newPassword || !this.confirmPassword) {
+      this.notification.showError('შეავსე ყველა ველი');
+      return;
+    }
+    if (!this.newPassword !== !this.confirmPassword) {
+      this.notification.showError('პაროლი არ ემთხვევა');
+      return;
+    }
+
+    this.notification.showSuccess('პაროლი წარმატებით შეიცვალა');
+    this.step = 'verifyUser';
+    this.showRecovery = false;
+
+    this.loginForm.patchValue({
+      username: this.usernameOrEmail,
+      password: '',
+    });
   }
 }

@@ -20,6 +20,7 @@ export class DialogsComponent {
   @Input() showCheckbox = false;
   @Input() confirmText: string = 'დადასტურება';
   @Input() title: string = '';
+  @Input() showButton: boolean = false;
 
   @Output() closed = new EventEmitter<void>();
   @Output() confirmed = new EventEmitter<void>();

@@ -39,6 +39,7 @@
           class="bg-primary text-white px-4 py-2 rounded disabled:opacity-50"
           [disabled]="showCheckbox && !isChecked"
           (click)="onConfirm()"
+          *ngIf="showButton"
         >
           {{ confirmText }}
         </button>

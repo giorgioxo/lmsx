@@ -1,4 +1,5 @@
 <div class="flex h-screen">
+  <!-- LEFT SIDE (Form) -->
   <div class="flex w-1/2 items-center justify-center">
     <div class="w-1/2 max-w-md space-y-6">
       <h1 class="text-xl font-bold text-center">შესვლა</h1>
@@ -6,35 +7,38 @@
         შეიყვანე შენი მონაცემები ავტორიზაციისთვის!
       </p>
 
+      <!-- LOGIN FORM -->
       <form
-        class="flex flex-col gap-3"
-        (ngSubmit)="login()"
         [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        class="flex flex-col gap-3"
       >
+        <!-- USERNAME -->
         <label class="text-sm text-textGray">მომხმარებელი *</label>
         <input
           type="text"
-          placeholder="შეიყვანე მომხმარებელი"
           formControlName="username"
+          placeholder="შეიყვანე მომხმარებელი"
           class="border border-solid placeholder:text-sm p-sm rounded-xl focus:outline-none focus:ring-0"
           [ngClass]="{
             'border-red-500':
               loginForm.get('username')?.touched &&
-              loginForm.get('username')?.invalid,
+              loginForm.get('username')?.invalid
           }"
         />
 
+        <!-- PASSWORD -->
         <label class="text-sm text-textGray">პაროლი *</label>
         <div class="relative">
           <input
-            formControlName="password"
             [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
             placeholder="შეიყვანე პაროლი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0"
             [ngClass]="{
               'border-red-500':
                 loginForm.get('password')?.touched &&
-                loginForm.get('password')?.invalid,
+                loginForm.get('password')?.invalid
             }"
           />
           <ion-icon
@@ -44,8 +48,9 @@
           ></ion-icon>
         </div>
 
+        <!-- OPTIONS -->
         <div class="flex justify-between items-center">
-          <label class="flex items-center gap-2 cursor-pointer text-xs">
+          <label class="flex items-center gap-2 text-xs cursor-pointer">
             <input
               type="checkbox"
               formControlName="rememberMe"
@@ -53,32 +58,102 @@
             />
             დაიმახსოვრე მომხარებელი
           </label>
-          <a href="#" class="text-primary text-xs hover:underline">აღდგენა</a>
+          <button type="button" (click)="showRecovery = true" class="text-sm text-primary hover:underline">
+            დაგავიწყდა მონაცემები?
+          </button>
         </div>
 
+        <!-- RECOVERY DIALOG -->
+        <lmsx-dialogs
+          *ngIf="showRecovery"
+          [title]="'ანგარიშის აღდგენა'"
+          [showCheckbox]="false"
+          (closed)="showRecovery = false"
+        >
+          <!-- STEP 1: VERIFY USER -->
+          <ng-container *ngIf="step === 'verifyUser'">
+            <label class="text-sm text-textGray block mb-1">შეიყვანე ელ.ფოსტა ან მომხმარებელი</label>
+            <input
+              type="text"
+              [(ngModel)]="usernameOrEmail"
+              [ngModelOptions]="{ standalone: true }"
+              class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-4"
+              placeholder="მაგ: giorgi@example.com"
+            />
+            <button
+              type="button"
+              class="bg-primary text-white py-sm px-md text-base rounded-xl w-full disabled:opacity-50"
+              (click)="checkUser()"
+            >
+              შემდეგ
+            </button>
+          </ng-container>
+
+          <!-- STEP 2: VERIFY OTP -->
+          <ng-container *ngIf="step === 'verifyOtp'">
+            <label class="text-sm text-textGray block mb-1">შეიყვანე მიღებული კოდი</label>
+            <input
+              type="text"
+              maxlength="6"
+              [(ngModel)]="otpCode"
+              class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-4"
+              placeholder="მაგ: 123456"
+            />
+            <button
+              type="button"
+              class="bg-primary text-white py-sm px-md text-base rounded-xl w-full"
+              (click)="verifyOtp()"
+            >
+              შემდეგ
+            </button>
+          </ng-container>
+
+          <!-- STEP 3: RESET PASSWORD -->
+          <ng-container *ngIf="step === 'resetPassword'">
+            <label class="text-sm text-textGray block mb-1">ახალი პაროლი</label>
+            <input
+              type="password"
+              [(ngModel)]="newPassword"
+              class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-3"
+              placeholder="ახალი პაროლი"
+            />
+            <label class="text-sm text-textGray block mb-1">გაიმეორე პაროლი</label>
+            <input
+              type="password"
+              [(ngModel)]="confirmPassword"
+              class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-4"
+              placeholder="გაიმეორე პაროლი"
+            />
+            <button
+              type="button"
+              class="bg-primary text-white py-sm px-md text-base rounded-xl w-full"
+              (click)="submitNewPassword()"
+            >
+              შეცვლა
+            </button>
+          </ng-container>
+        </lmsx-dialogs>
+
+        <!-- SUBMIT BUTTON -->
         <button
           type="submit"
           [disabled]="loginForm.invalid"
-          class="bg-primary text-white py-sm text-base rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          class="bg-primary text-white py-sm text-base rounded-xl w-full disabled:opacity-50 disabled:cursor-not-allowed"
         >
           შესვლა
         </button>
       </form>
 
+      <!-- REGISTRATION LINK -->
       <p class="text-center text-sm">
         არ ხარ რეგისტრირებული?
-        <a
-          [routerLink]="'/register'"
-          class="text-primary cursor-pointer hover:underline"
-          >დარეგისტრირდი</a
-        >
+        <a [routerLink]="'/register'" class="text-primary hover:underline">დარეგისტრირდი</a>
       </p>
     </div>
   </div>
 
-  <div
-    class="w-1/2 bg-primary-gradient flex items-center justify-center gap-x-3"
-  >
+  <!-- RIGHT SIDE (Illustration) -->
+  <div class="w-1/2 bg-primary-gradient flex items-center justify-center gap-x-3">
     <div class="w-10 h-10">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
         <path

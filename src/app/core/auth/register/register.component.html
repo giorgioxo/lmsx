@@ -227,10 +227,10 @@
         <lmsx-dialogs
           *ngIf="showDialog"
           [title]="dialogTitle"
-          [showCheckbox]="true"
           [confirmText]="'ვეთანხმები'"
           (closed)="closeDialog()"
           (confirmed)="acceptTerms()"
+         
         >
           <!-- Content which can be dynamic or reusable component -->
           <ng-container *ngIf="dialogType === 'terms'">
