@@ -9,6 +9,14 @@
       "password": "jorj123321"
     },
     {
+      "id": "2",
+      "firstName": "a",
+      "lastName": "s",
+      "username": "s",
+      "email": "s",
+      "password": "a"
+    },
+    {
       "id": "1815",
       "firstName": "giorgi",
       "lastName": "khokhonishvili",
@@ -23,6 +31,15 @@
       "username": "asdasd2qw",
       "email": "aw@saa.a",
       "password": "asdsssaddaswW22@"
+    },
+    {
+      "id": "73f0",
+      "firstName": "გიორგი",
+      "lastName": "ხოხონიშვილი",
+      "username": "giorgioxo",
+      "email": "giorgikhokhonishvili@gmail.com",
+      "password": "Paroli99@",
+      "repeatPassword": "Paroli99@"
     }
   ],
   "notifications": [

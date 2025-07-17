@@ -1,10 +1,10 @@
 <div class="flex h-screen">
-
   <div class="flex w-1/2 items-center justify-center">
     <div class="w-1/2 max-w-md space-y-6">
-      
       <h1 class="text-xl font-bold text-center">რეგისტრაცია</h1>
-      <p class="text-center text-base text-textGray">შეიყვანე შენი მონაცემები რეგისტრაციისთვის!</p>
+      <p class="text-center text-base text-textGray">
+        შეიყვანე შენი მონაცემები რეგისტრაციისთვის!
+      </p>
 
       <div class="flex items-center justify-center">
         <span class="border-b w-1/5 lg:w-1/4"></span>
@@ -12,8 +12,11 @@
         <span class="border-b w-1/5 lg:w-1/4"></span>
       </div>
 
-      <form class="flex flex-col gap-3" (ngSubmit)="register()" [formGroup]="registerForm">
-
+      <form
+        class="flex flex-col gap-3"
+        (ngSubmit)="register()"
+        [formGroup]="registerForm"
+      >
         <div class="relative">
           <label class="text-sm text-textGray block mb-3">სახელი *</label>
           <input
@@ -22,19 +25,24 @@
             placeholder="შეიყვანე სახელი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl focus:outline-none focus:ring-0 w-full"
             [ngClass]="{
-              'border-red-500': (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty) 
-                               && registerForm.get('firstName')?.invalid
+              'border-red-500':
+                (registerForm.get('firstName')?.touched ||
+                  registerForm.get('firstName')?.dirty) &&
+                registerForm.get('firstName')?.invalid,
             }"
           />
           <div
-            *ngIf="(registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty) 
-                    && registerForm.get('firstName')?.errors?.['invalidGeorgianName']"
+            *ngIf="
+              (registerForm.get('firstName')?.touched ||
+                registerForm.get('firstName')?.dirty) &&
+              registerForm.get('firstName')?.errors?.['invalidGeorgianName']
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
             მხოლოდ ქართული ასოები დასაშვებია
           </div>
         </div>
-      
+
         <div class="relative">
           <label class="text-sm text-textGray block mb-3">გვარი *</label>
           <input
@@ -43,19 +51,24 @@
             placeholder="შეიყვანე გვარი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl focus:outline-none focus:ring-0 w-full"
             [ngClass]="{
-              'border-red-500': (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty)
-                               && registerForm.get('lastName')?.invalid
+              'border-red-500':
+                (registerForm.get('lastName')?.touched ||
+                  registerForm.get('lastName')?.dirty) &&
+                registerForm.get('lastName')?.invalid,
             }"
           />
           <div
-            *ngIf="(registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty) 
-                    && registerForm.get('lastName')?.errors?.['invalidGeorgianName']"
+            *ngIf="
+              (registerForm.get('lastName')?.touched ||
+                registerForm.get('lastName')?.dirty) &&
+              registerForm.get('lastName')?.errors?.['invalidGeorgianName']
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
             მხოლოდ ქართული ასოები დასაშვებია
           </div>
         </div>
-      
+
         <div class="relative">
           <label class="text-sm text-textGray block mb-3">მომხმარებელი *</label>
           <input
@@ -64,24 +77,33 @@
             placeholder="შეიყვანე მომხმარებელი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl focus:outline-none focus:ring-0 w-full"
             [ngClass]="{
-              'border-red-500': (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)
-                               && registerForm.get('username')?.invalid
+              'border-red-500':
+                (registerForm.get('username')?.touched ||
+                  registerForm.get('username')?.dirty) &&
+                registerForm.get('username')?.invalid,
             }"
           />
           <div
-            *ngIf="(registerForm.get('username')?.touched || registerForm.get('username')?.dirty) 
-                    && registerForm.get('username')?.errors"
+            *ngIf="
+              (registerForm.get('username')?.touched ||
+                registerForm.get('username')?.dirty) &&
+              registerForm.get('username')?.errors
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
-            <div *ngIf="registerForm.get('username')?.errors?.['invalidUsername']">
+            <div
+              *ngIf="registerForm.get('username')?.errors?.['invalidUsername']"
+            >
               მინიმუმ 8 სიმბოლო, მხოლოდ ლათინური ასოები ან რიცხვები
             </div>
-            <div *ngIf="registerForm.get('username')?.errors?.['usernameTaken']">
+            <div
+              *ngIf="registerForm.get('username')?.errors?.['usernameTaken']"
+            >
               ეს მომხმარებელი უკვე არსებობს
             </div>
           </div>
         </div>
-      
+
         <div class="relative">
           <label class="text-sm text-textGray block mb-3">იმეილი *</label>
           <input
@@ -90,20 +112,29 @@
             placeholder="შეიყვანე იმეილი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl focus:outline-none focus:ring-0 w-full"
             [ngClass]="{
-              'border-red-500': (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)
-                               && registerForm.get('email')?.invalid
+              'border-red-500':
+                (registerForm.get('email')?.touched ||
+                  registerForm.get('email')?.dirty) &&
+                registerForm.get('email')?.invalid,
             }"
           />
           <div
-            *ngIf="(registerForm.get('email')?.touched || registerForm.get('email')?.dirty) 
-                    && registerForm.get('email')?.errors"
+            *ngIf="
+              (registerForm.get('email')?.touched ||
+                registerForm.get('email')?.dirty) &&
+              registerForm.get('email')?.errors
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
-            <div *ngIf="registerForm.get('email')?.errors?.['invalidEmail']">არასწორი იმეილის ფორმატი</div>
-            <div *ngIf="registerForm.get('email')?.errors?.['emailTaken']">ეს იმეილი უკვე არსებობს</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['invalidEmail']">
+              არასწორი იმეილის ფორმატი
+            </div>
+            <div *ngIf="registerForm.get('email')?.errors?.['emailTaken']">
+              ეს იმეილი უკვე არსებობს
+            </div>
           </div>
         </div>
-      
+
         <div class="relative">
           <label class="text-sm text-textGray block mb-3">პაროლი *</label>
           <input
@@ -112,8 +143,10 @@
             placeholder="შეიყვანე პაროლი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0"
             [ngClass]="{
-              'border-red-500': (registerForm.get('password')?.touched || registerForm.get('password')?.dirty) 
-                               && registerForm.get('password')?.invalid
+              'border-red-500':
+                (registerForm.get('password')?.touched ||
+                  registerForm.get('password')?.dirty) &&
+                registerForm.get('password')?.invalid,
             }"
           />
           <ion-icon
@@ -122,24 +155,32 @@
             class="absolute right-4 top-[70%] -translate-y-1/2 cursor-pointer"
           ></ion-icon>
           <div
-            *ngIf="(registerForm.get('password')?.touched || registerForm.get('password')?.dirty) 
-                    && registerForm.get('password')?.errors?.['weakPassword']"
+            *ngIf="
+              (registerForm.get('password')?.touched ||
+                registerForm.get('password')?.dirty) &&
+              registerForm.get('password')?.errors?.['weakPassword']
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
             უნდა შეიცავდეს a-A-0-# 8 სიმბოლოებს
           </div>
         </div>
-      
+
         <div class="relative">
-          <label class="text-sm text-textGray block mb-3">გაიმეორე პაროლი *</label>
+          <label class="text-sm text-textGray block mb-3"
+            >გაიმეორე პაროლი *</label
+          >
           <input
             [type]="showPassword ? 'text' : 'password'"
             formControlName="repeatPassword"
             placeholder="გაიმეორე პაროლი"
             class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0"
             [ngClass]="{
-              'border-red-500': (registerForm.get('repeatPassword')?.touched || registerForm.get('repeatPassword')?.dirty) 
-                               && (registerForm.get('repeatPassword')?.invalid || registerForm.errors?.['passwordMismatch'])
+              'border-red-500':
+                (registerForm.get('repeatPassword')?.touched ||
+                  registerForm.get('repeatPassword')?.dirty) &&
+                (registerForm.get('repeatPassword')?.invalid ||
+                  registerForm.errors?.['passwordMismatch']),
             }"
           />
           <ion-icon
@@ -148,27 +189,57 @@
             class="absolute right-4 top-[70%] -translate-y-1/2 cursor-pointer"
           ></ion-icon>
           <div
-            *ngIf="(registerForm.get('repeatPassword')?.touched || registerForm.get('repeatPassword')?.dirty) 
-                    && registerForm.errors?.['passwordMismatch']"
+            *ngIf="
+              (registerForm.get('repeatPassword')?.touched ||
+                registerForm.get('repeatPassword')?.dirty) &&
+              registerForm.errors?.['passwordMismatch']
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
             პაროლები არ ემთხვევა
           </div>
           <div
-            *ngIf="(registerForm.get('repeatPassword')?.touched || registerForm.get('repeatPassword')?.dirty) 
-                    && registerForm.get('repeatPassword')?.errors?.['required']"
+            *ngIf="
+              (registerForm.get('repeatPassword')?.touched ||
+                registerForm.get('repeatPassword')?.dirty) &&
+              registerForm.get('repeatPassword')?.errors?.['required']
+            "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
             პაროლი აუცილებელია
           </div>
         </div>
-      
+
         <p class="text-xs text-textGray text-center mt-2">
-          ანგარიშის შექმნით ეთანხმებით ჩვენს 
-          <a href="#" class="text-primary underline">წესებსა და პირობებს</a> და 
-          <a href="#" class="text-primary underline">კონფიდენციალურობის პოლიტიკას</a>.
+          ანგარიშის შექმნით ეთანხმებით ჩვენს
+          <button class="text-primary underline" (click)="openDialog('terms')">
+            წესებსა და პირობებს
+          </button>
+          და
+          <button
+            class="text-primary underline"
+            (click)="openDialog('privacy')"
+          >
+            კონფიდენციალურობის პოლიტიკას</button
+          >.
         </p>
-      
+
+        <lmsx-dialogs
+          *ngIf="showDialog"
+          [title]="dialogTitle"
+          [showCheckbox]="true"
+          [confirmText]="'ვეთანხმები'"
+          (closed)="closeDialog()"
+          (confirmed)="acceptTerms()"
+        >
+          <!-- Content which can be dynamic or reusable component -->
+          <ng-container *ngIf="dialogType === 'terms'">
+            <p>აქ იქნება წესებისა და პირობების ტექსტი ან component...</p>
+          </ng-container>
+          <ng-container *ngIf="dialogType === 'privacy'">
+            <p>აქ იქნება კონფიდენციალურობის პოლიტიკის ტექსტი...</p>
+          </ng-container>
+        </lmsx-dialogs>
         <button
           type="submit"
           [disabled]="registerForm.invalid"
@@ -177,25 +248,32 @@
           რეგისტრაცია
         </button>
       </form>
-      
 
       <p class="text-center text-sm">
         უკვე გაქვს ანგარიში?
-        <a [routerLink]="'/login'" class="text-primary cursor-pointer hover:underline">შესვლა</a>
+        <a
+          [routerLink]="'/login'"
+          class="text-primary cursor-pointer hover:underline"
+          >შესვლა</a
+        >
       </p>
     </div>
   </div>
 
-  <div class="w-1/2 bg-primary-gradient flex items-center justify-center gap-x-3">
+  <div
+    class="w-1/2 bg-primary-gradient flex items-center justify-center gap-x-3"
+  >
     <div class="w-10 h-10">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-        <path d="M32 2C18 2 6 10 6 24v16c0 14 12 22 26 22s26-8 26-22V24c0-14-12-22-26-22z" fill="white"/>
-        <rect x="20" y="22" width="6" height="20" rx="2" fill="#2F7DC2"/>
-        <rect x="30" y="16" width="6" height="26" rx="2" fill="#2F7DC2"/>
-        <rect x="40" y="26" width="6" height="16" rx="2" fill="#2F7DC2"/>
+        <path
+          d="M32 2C18 2 6 10 6 24v16c0 14 12 22 26 22s26-8 26-22V24c0-14-12-22-26-22z"
+          fill="white"
+        />
+        <rect x="20" y="22" width="6" height="20" rx="2" fill="#2F7DC2" />
+        <rect x="30" y="16" width="6" height="26" rx="2" fill="#2F7DC2" />
+        <rect x="40" y="26" width="6" height="16" rx="2" fill="#2F7DC2" />
       </svg>
     </div>
     <span class="text-white text-lg"> არ გაჩერდე !</span>
   </div>
-
 </div>

@@ -7,11 +7,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
+
 import { UserRegister } from '../../models/auth.interface';
 import { AuthService } from '../../services/auth.service';
+
 import { NotificationService } from '../../../shared/notifications/services/notification.service';
 import {
   emailFormatValidator,
@@ -22,16 +25,27 @@ import {
   usernameTakenValidator,
   usernameValidator,
 } from '../../../shared/validators/auth.validator';
+import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
 
 @Component({
   selector: 'lmsx-register',
-  imports: [ReactiveFormsModule, RouterModule, IonIcon, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterModule,
+    IonIcon,
+    CommonModule,
+    DialogsComponent,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   showPassword = false;
+
+  showDialog = false;
+  dialogType: 'terms' | 'privacy' = 'terms';
+  dialogTitle = '';
 
   constructor(
     private fb: FormBuilder,
@@ -83,5 +97,21 @@ export class RegisterComponent implements OnInit {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  openDialog(type: 'terms' | 'privacy') {
+    this.dialogType = type;
+    this.dialogTitle =
+      type === 'terms' ? 'წესები და პირობები' : 'კონფიდენციალურობის პოლიტიკა';
+    this.showDialog = true;
+  }
+
+  closeDialog() {
+    this.showDialog = false;
+  }
+
+  acceptTerms() {
+    console.log('დადასტურდა პირობები');
+    this.showDialog = false;
   }
 }
