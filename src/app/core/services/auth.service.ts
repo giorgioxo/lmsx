@@ -1,7 +1,7 @@
 import { Injectable, viewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 import { UserRegister } from '../models/auth.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -52,5 +52,25 @@ export class AuthService {
     return this.http
       .get<any[]>(`http://localhost:3000/users?email=${email}`)
       .pipe(map((users) => users.length > 0));
+  }
+
+  recoverPassword(email: string, enteredOtp: string, newPassword: string) {
+    const correctOtp = '1121';
+    if (enteredOtp !== correctOtp) {
+      return throwError(() => `არასწორი კოდი`);
+    }
+
+    return this.http
+      .get<UserRegister[]>(`${this.baseUrl}users?email=${email}`)
+      .pipe(
+        map((users) => users[0]),
+        switchMap((user) => {
+          if (!user) return throwError(() => `მომხმარებელი ვერ მოიძებნა`);
+          return this.http.patch<UserRegister>(
+            `${this.baseUrl}users/${user.id}`,
+            { password: newPassword },
+          );
+        }),
+      );
   }
 }

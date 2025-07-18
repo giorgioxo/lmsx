@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +14,11 @@ import { addIcons } from 'ionicons';
 import { eyeOutline, boatOutline, eyeOffOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
+import {
+  passwordMatchValidator,
+  strongPasswordValidator,
+} from '../../../shared/validators/auth.validator';
+import { error } from 'console';
 
 @Component({
   selector: 'lmsx-login',
@@ -31,14 +36,13 @@ import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  resetForm!: FormGroup;
   showPassword: boolean = false;
+
+  dialogTitle: string = '';
 
   step: 'verifyUser' | 'verifyOtp' | 'resetPassword' = 'verifyUser';
   showRecovery: boolean = false;
-  usernameOrEmail = '';
-  otpCode = '';
-  newPassword = '';
-  confirmPassword = '';
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +54,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resetForm = this.fb.group(
+      {
+        usernameOrEmail: ['', Validators.required],
+        otpCode: ['', Validators.required],
+        newPassword: ['', [Validators.required, strongPasswordValidator()]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validators: passwordMatchValidator },
+    );
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -67,6 +81,8 @@ export class LoginComponent implements OnInit {
         });
       }
     }
+
+    this.dialogTitle = 'ანგარიშის აღდგენა';
   }
 
   login() {
@@ -106,14 +122,16 @@ export class LoginComponent implements OnInit {
   }
 
   checkUser() {
-    if (!this.usernameOrEmail) {
+    const { usernameOrEmail } = this.resetForm.value;
+
+    if (!usernameOrEmail) {
       this.notification.showError('შეიყვანე მომხარებელი ან ელფოსტა სწორად');
       return;
     }
-    const isEmail = this.usernameOrEmail.includes('@');
+    const isEmail = usernameOrEmail.includes('@');
     const check$ = isEmail
-      ? this.authService.checkEmailExists(this.usernameOrEmail)
-      : this.authService.checkUsernameExists(this.usernameOrEmail);
+      ? this.authService.checkEmailExists(usernameOrEmail)
+      : this.authService.checkUsernameExists(usernameOrEmail);
 
     check$.subscribe((exists) => {
       if (exists) {
@@ -128,7 +146,8 @@ export class LoginComponent implements OnInit {
 
   verifyOtp() {
     const correctOtp = '1121';
-    if (this.otpCode === correctOtp) {
+    const { otpCode } = this.resetForm.value;
+    if (otpCode === correctOtp) {
       this.notification.showSuccess('კოდი სწორია');
       this.step = 'resetPassword';
     } else {
@@ -137,22 +156,27 @@ export class LoginComponent implements OnInit {
   }
 
   submitNewPassword() {
-    if (!this.newPassword || !this.confirmPassword) {
-      this.notification.showError('შეავსე ყველა ველი');
-      return;
-    }
-    if (!this.newPassword !== !this.confirmPassword) {
-      this.notification.showError('პაროლი არ ემთხვევა');
+    if (this.resetForm.invalid) {
+      this.notification.showError('შეავსე ყველა ველი სწორად');
       return;
     }
 
-    this.notification.showSuccess('პაროლი წარმატებით შეიცვალა');
-    this.step = 'verifyUser';
-    this.showRecovery = false;
+    const { newPassword, usernameOrEmail, otpCode } = this.resetForm.value;
 
-    this.loginForm.patchValue({
-      username: this.usernameOrEmail,
-      password: '',
-    });
+    this.authService
+      .recoverPassword(usernameOrEmail, otpCode, newPassword)
+      .subscribe({
+        next: () => {
+          this.notification.showSuccess('პაროლი წარმატებით შეიცვალა');
+          this.step = 'verifyUser';
+          this.showRecovery = false;
+          this.resetForm.reset();
+        },
+        error: (err) => {
+          const errorMessage =
+            typeof err === 'string' ? err : 'შეცდომა პაროლის აღდგენაში';
+          this.notification.showError(errorMessage);
+        },
+      });
   }
 }

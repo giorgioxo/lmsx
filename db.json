@@ -12,9 +12,9 @@
       "id": "2",
       "firstName": "a",
       "lastName": "s",
-      "username": "s",
+      "username": "aaaaaaaa",
       "email": "s",
-      "password": "a"
+      "password": "Qwerty123@"
     },
     {
       "id": "1815",
@@ -49,6 +49,15 @@
       "email": "1@gm.com",
       "password": "12345678@wW",
       "repeatPassword": "12345678@wW"
+    },
+    {
+      "id": "46ae",
+      "firstName": "გიო",
+      "lastName": "ხიო",
+      "username": "xioxioxio",
+      "email": "xio@xio.com",
+      "password": "Xioxioxio1!",
+      "repeatPassword": "Xioxioxio1!"
     }
   ],
   "notifications": [

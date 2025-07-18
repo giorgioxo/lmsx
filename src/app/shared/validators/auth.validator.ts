@@ -57,15 +57,14 @@ export function strongPasswordValidator(): ValidatorFn {
 }
 
 export const passwordMatchValidator: ValidatorFn = (
-  group: AbstractControl,
+  control: AbstractControl,
 ): ValidationErrors | null => {
-  const password = group.get('password')?.value;
-  const repeatPassword = group.get('repeatPassword')?.value;
+  const newPassword = control.get('newPassword')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
 
-  if (password && repeatPassword && password !== repeatPassword) {
-    return { passwordMismatch: true };
-  }
-  return null;
+  if (!newPassword || !confirmPassword) return null;
+
+  return newPassword === confirmPassword ? null : { passwordMismatch: true };
 };
 
 export function usernameTakenValidator(
