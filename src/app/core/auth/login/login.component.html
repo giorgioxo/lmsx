@@ -5,11 +5,9 @@
       <p class="text-center text-base text-textGray">
         შეიყვანე შენი მონაცემები ავტორიზაციისთვის!
       </p>
-
       <form
         [formGroup]="loginForm"
-     
-        (ngSubmit)="login()" *ngIf="!showRecovery"
+        (ngSubmit)="login()"
         class="flex flex-col gap-3"
       >
         <label class="text-sm text-textGray">მომხმარებელი *</label>
@@ -55,138 +53,13 @@
             დაიმახსოვრე მომხარებელი
           </label>
           <button
-            type="submit"
-            (click)="showRecovery = true"
+            (click)="openResetPasswordDialog()"
+            type="button"
             class="text-sm text-primary hover:underline"
-          
           >
             დაგავიწყდა მონაცემები?
           </button>
         </div>
-      </form>
-      <lmsx-dialogs
-          *ngIf="showRecovery"
-          [title]="dialogTitle"
-          [showCheckbox]="false"
-          (closed)="showRecovery = false"
-        >
-      <form [formGroup]="resetForm" (ngSubmit)="submitNewPassword()"  *ngIf="showRecovery">
-        
-          <ng-container *ngIf="step === 'verifyUser'">
-            <label class="text-sm text-textGray block mb-2"
-              >შეიყვანე ელ.ფოსტა ან მომხმარებელი</label
-            >
-            <input
-              type="text"
-              formControlName="usernameOrEmail"
-              class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-4"
-              placeholder="მაგ: giorgi@example.com"
-            />
-            <button
-              type="button"
-              class="bg-primary text-white py-sm px-md text-base rounded-xl w-full disabled:opacity-50"
-              (click)="checkUser()"
-            >
-              შემდეგ
-            </button>
-          </ng-container>
-
-          <ng-container *ngIf="step === 'verifyOtp'">
-            <label class="text-sm text-textGray block mb-1"
-              >შეიყვანე მიღებული კოდი</label
-            >
-            <input
-              type="text"
-              maxlength="6"
-              formControlName="otpCode"
-              class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-4"
-              placeholder="მაგ: 123456"
-            />
-            <button
-              type="button"
-              class="bg-primary text-white py-sm px-md text-base rounded-xl w-full"
-              (click)="verifyOtp()"
-            >
-              შემდეგ
-            </button>
-          </ng-container>
-
-          <ng-container *ngIf="step === 'resetPassword'">
-            <div class="relative py-1">
-              <label class="text-sm text-textGray block mb-1"
-                >ახალი პაროლი</label
-              >
-              <input
-                type="password"
-                formControlName="newPassword"
-                class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-3"
-                placeholder="ახალი პაროლი"
-                [ngClass]="{
-                  'border-red-500':
-                    (resetForm.get('newPassword')?.touched ||
-                      resetForm.get('newPassword')?.dirty) &&
-                    resetForm.get('newPassword')?.invalid,
-                }"
-              />
-
-              <div
-                *ngIf="
-                  (resetForm.get('newPassword')?.touched ||
-                    resetForm.get('newPassword')?.dirty) &&
-                  resetForm.get('newPassword')?.errors?.['weakPassword']
-                "
-                class="absolute bottom-[-6px] right-0 text-red-500 text-xs"
-              >
-                უნდა შეიცავდეს a-A-0-# და მინ. 8 სიმბოლო
-              </div>
-            </div>
-
-            <div class="relative py-1 mb-4">
-              <label class="text-sm text-textGray block mb-1"
-                >გაიმეორე პაროლი</label
-              >
-              <input
-                type="password"
-                formControlName="confirmPassword"
-                class="border border-solid placeholder:text-sm p-sm rounded-xl w-full focus:outline-none focus:ring-0 mb-4"
-                placeholder="გაიმეორე პაროლი"
-                [ngClass]="{
-                  'border-red-500':
-                    (resetForm.get('confirmPassword')?.touched ||
-                      resetForm.get('confirmPassword')?.dirty) &&
-                    (resetForm.get('confirmPassword')?.invalid ||
-                      resetForm.errors?.['passwordMismatch']),
-                }"
-              />
-              <div
-                *ngIf="
-                  (resetForm.get('confirmPassword')?.touched ||
-                    resetForm.get('confirmPassword')?.dirty) &&
-                  resetForm.errors?.['passwordMismatch']
-                "
-                class="absolute bottom-[-6px] right-0 text-red-500 text-xs"
-              >
-                პაროლები არ ემთხვევა
-              </div>
-              <div
-                *ngIf="
-                  (resetForm.get('confirmPassword')?.touched ||
-                    resetForm.get('confirmPassword')?.dirty) &&
-                  resetForm.get('confirmPassword')?.errors?.['required']
-                "
-                class="absolute bottom-[-6px] right-0 text-red-500 text-xs"
-              >
-                პაროლი აუცილებელია
-              </div>
-            </div>
-            <button
-              type="submit"
-              class="bg-primary text-white py-sm px-md text-base rounded-xl w-full"
-            >
-              შეცვლა
-            </button>
-          </ng-container>
-     
 
         <button
           type="submit"
@@ -196,7 +69,7 @@
           შესვლა
         </button>
       </form>
-    </lmsx-dialogs>
+
       <p class="text-center text-sm">
         არ ხარ რეგისტრირებული?
         <a [routerLink]="'/register'" class="text-primary hover:underline"
@@ -223,3 +96,14 @@
     <span class="text-white text-lg font-semibold">არ გაჩერდე!</span>
   </div>
 </div>
+
+<lmsx-dialogs
+  *ngIf="showResetDialog"
+  (closed)="closeResetPasswordDialog()"
+  [showCheckbox]="false"
+  [showButton]="false"
+>
+  <lmsx-reset-password
+    (passwordResetDone)="closeResetPasswordDialog()"
+  ></lmsx-reset-password>
+</lmsx-dialogs>

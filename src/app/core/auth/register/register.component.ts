@@ -111,7 +111,6 @@ export class RegisterComponent implements OnInit {
   }
 
   acceptTerms() {
-    console.log('დადასტურდა პირობები');
     this.showDialog = false;
   }
 }

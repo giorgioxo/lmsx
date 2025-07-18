@@ -17,7 +17,6 @@ export class AuthService {
       )
       .pipe(
         tap((users) => {
-          console.log(users);
           if (users.length) {
             localStorage.setItem('currentUser', JSON.stringify(username[0]));
           }
@@ -54,18 +53,28 @@ export class AuthService {
       .pipe(map((users) => users.length > 0));
   }
 
-  recoverPassword(email: string, enteredOtp: string, newPassword: string) {
+  recoverPassword(
+    usernameOrEmail: string,
+    enteredOtp: string,
+    newPassword: string,
+  ) {
     const correctOtp = '1121';
     if (enteredOtp !== correctOtp) {
       return throwError(() => `არასწორი კოდი`);
     }
 
+    const isEmail = usernameOrEmail.includes('@');
+    const queryParam = isEmail
+      ? `email=${usernameOrEmail}`
+      : `username=${usernameOrEmail}`;
+
     return this.http
-      .get<UserRegister[]>(`${this.baseUrl}users?email=${email}`)
+      .get<UserRegister[]>(`${this.baseUrl}users?${queryParam}`)
       .pipe(
         map((users) => users[0]),
         switchMap((user) => {
           if (!user) return throwError(() => `მომხმარებელი ვერ მოიძებნა`);
+          console.log('PATCH payload:', { password: newPassword });
           return this.http.patch<UserRegister>(
             `${this.baseUrl}users/${user.id}`,
             { password: newPassword },

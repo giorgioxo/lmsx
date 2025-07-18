@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,11 +14,7 @@ import { addIcons } from 'ionicons';
 import { eyeOutline, boatOutline, eyeOffOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
-import {
-  passwordMatchValidator,
-  strongPasswordValidator,
-} from '../../../shared/validators/auth.validator';
-import { error } from 'console';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 @Component({
   selector: 'lmsx-login',
@@ -30,19 +26,16 @@ import { error } from 'console';
     FormsModule,
     IonIcon,
     DialogsComponent,
+    ResetPasswordComponent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  resetForm!: FormGroup;
   showPassword: boolean = false;
 
-  dialogTitle: string = '';
-
-  step: 'verifyUser' | 'verifyOtp' | 'resetPassword' = 'verifyUser';
-  showRecovery: boolean = false;
+  showResetDialog = false;
 
   constructor(
     private fb: FormBuilder,
@@ -54,16 +47,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resetForm = this.fb.group(
-      {
-        usernameOrEmail: ['', Validators.required],
-        otpCode: ['', Validators.required],
-        newPassword: ['', [Validators.required, strongPasswordValidator()]],
-        confirmPassword: ['', [Validators.required]],
-      },
-      { validators: passwordMatchValidator },
-    );
-
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -81,8 +64,6 @@ export class LoginComponent implements OnInit {
         });
       }
     }
-
-    this.dialogTitle = 'ანგარიშის აღდგენა';
   }
 
   login() {
@@ -121,62 +102,11 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  checkUser() {
-    const { usernameOrEmail } = this.resetForm.value;
-
-    if (!usernameOrEmail) {
-      this.notification.showError('შეიყვანე მომხარებელი ან ელფოსტა სწორად');
-      return;
-    }
-    const isEmail = usernameOrEmail.includes('@');
-    const check$ = isEmail
-      ? this.authService.checkEmailExists(usernameOrEmail)
-      : this.authService.checkUsernameExists(usernameOrEmail);
-
-    check$.subscribe((exists) => {
-      if (exists) {
-        this.notification.showSuccess('კოდი გაიგზავნა ელფოსტაზე');
-        // TODO აქ უნდა გავწერო otp call ფლოუ შემდეგში... რამე ბიბლიოთეკის გამოყენებით
-        this.step = 'verifyOtp';
-      } else {
-        this.notification.showError('მომხარებელი არ მოიძებნა');
-      }
-    });
+  openResetPasswordDialog() {
+    this.showResetDialog = true;
   }
 
-  verifyOtp() {
-    const correctOtp = '1121';
-    const { otpCode } = this.resetForm.value;
-    if (otpCode === correctOtp) {
-      this.notification.showSuccess('კოდი სწორია');
-      this.step = 'resetPassword';
-    } else {
-      this.notification.showError('კოდი არასწორია');
-    }
-  }
-
-  submitNewPassword() {
-    if (this.resetForm.invalid) {
-      this.notification.showError('შეავსე ყველა ველი სწორად');
-      return;
-    }
-
-    const { newPassword, usernameOrEmail, otpCode } = this.resetForm.value;
-
-    this.authService
-      .recoverPassword(usernameOrEmail, otpCode, newPassword)
-      .subscribe({
-        next: () => {
-          this.notification.showSuccess('პაროლი წარმატებით შეიცვალა');
-          this.step = 'verifyUser';
-          this.showRecovery = false;
-          this.resetForm.reset();
-        },
-        error: (err) => {
-          const errorMessage =
-            typeof err === 'string' ? err : 'შეცდომა პაროლის აღდგენაში';
-          this.notification.showError(errorMessage);
-        },
-      });
+  closeResetPasswordDialog() {
+    this.showResetDialog = false;
   }
 }

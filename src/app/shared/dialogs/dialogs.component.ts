@@ -32,6 +32,7 @@ export class DialogsComponent {
 
   onClose() {
     this.closed.emit();
+    console.log('vacher');
   }
 
   onConfirm() {
