@@ -40,6 +40,15 @@
       "email": "giorgikhokhonishvili@gmail.com",
       "password": "Paroli99@",
       "repeatPassword": "Paroli99@"
+    },
+    {
+      "id": "ff2f",
+      "firstName": "ას",
+      "lastName": "სა",
+      "username": "11111111",
+      "email": "1@gm.com",
+      "password": "12345678@wW",
+      "repeatPassword": "12345678@wW"
     }
   ],
   "notifications": [

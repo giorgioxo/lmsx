@@ -39,7 +39,7 @@
             "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
-            მხოლოდ ქართული ასოები დასაშვებია
+           შეიყვანეთ მხოლოდ ქართული ასოები
           </div>
         </div>
 
@@ -65,7 +65,7 @@
             "
             class="absolute top-[112%] right-0 text-red-500 text-xs"
           >
-            მხოლოდ ქართული ასოები დასაშვებია
+          შეიყვანეთ მხოლოდ ქართული ასოები
           </div>
         </div>
 
@@ -210,7 +210,7 @@
           </div>
         </div>
 
-        <p class="text-xs text-textGray text-center mt-2">
+        <p class="text-xs text-textGray text-center mt-4 ">
           ანგარიშის შექმნით ეთანხმებით ჩვენს
           <button class="text-primary underline" (click)="openDialog('terms')">
             წესებსა და პირობებს
@@ -232,12 +232,12 @@
           (confirmed)="acceptTerms()"
          
         >
-          <!-- Content which can be dynamic or reusable component -->
+        
           <ng-container *ngIf="dialogType === 'terms'">
-            <p>აქ იქნება წესებისა და პირობების ტექსტი ან component...</p>
+            <p>წესები პირობები და ეგეთი ყლეობები :))) </p>
           </ng-container>
           <ng-container *ngIf="dialogType === 'privacy'">
-            <p>აქ იქნება კონფიდენციალურობის პოლიტიკის ტექსტი...</p>
+            <p>კონფიდენციალურობის წესები პირობები და ეგეთი ყლეობები :)))</p>
           </ng-container>
         </lmsx-dialogs>
         <button
