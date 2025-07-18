@@ -13,16 +13,21 @@ import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../../shared/notifications/services/notification.service';
 import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
 import { CommonModule } from '@angular/common';
-
+import { IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 @Component({
   selector: 'lmsx-reset-password',
-  imports: [DialogsComponent, ReactiveFormsModule, CommonModule],
+  imports: [DialogsComponent, ReactiveFormsModule, CommonModule, IonIcon],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
 })
 export class ResetPasswordComponent implements OnInit {
   @Output() passwordResetDone = new EventEmitter<void>();
+
   resetForm!: FormGroup;
+
+  showPassword: boolean = false;
   step: 'verifyUser' | 'verifyOtp' | 'resetPassword' = 'verifyUser';
   dialogTitle = 'ანგარიშის აღდგენა';
 
@@ -30,7 +35,9 @@ export class ResetPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private notification: NotificationService,
     private authService: AuthService,
-  ) {}
+  ) {
+    addIcons({ eyeOutline, eyeOffOutline });
+  }
 
   ngOnInit(): void {
     this.resetForm = this.fb.group(
@@ -102,5 +109,8 @@ export class ResetPasswordComponent implements OnInit {
         },
       });
     this.passwordResetDone.emit();
+  }
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 }

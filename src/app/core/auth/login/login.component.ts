@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../../shared/notifications/services/notification.service';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { eyeOutline, boatOutline, eyeOffOutline } from 'ionicons/icons';
+import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private notification: NotificationService,
   ) {
-    addIcons({ eyeOutline, boatOutline, eyeOffOutline });
+    addIcons({ eyeOutline, eyeOffOutline });
   }
 
   ngOnInit() {
