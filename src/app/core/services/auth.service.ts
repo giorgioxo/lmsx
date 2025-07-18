@@ -74,7 +74,6 @@ export class AuthService {
         map((users) => users[0]),
         switchMap((user) => {
           if (!user) return throwError(() => `მომხმარებელი ვერ მოიძებნა`);
-          console.log('PATCH payload:', { password: newPassword });
           return this.http.patch<UserRegister>(
             `${this.baseUrl}users/${user.id}`,
             { password: newPassword },

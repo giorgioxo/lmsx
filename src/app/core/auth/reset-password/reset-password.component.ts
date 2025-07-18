@@ -78,7 +78,6 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   submitNewPassword() {
-    console.log('submitNewPassword called with:', this.resetForm.value);
     if (this.resetForm.invalid) {
       this.notification.showError('შეავსე ყველა ველი სწორად');
       return;
