@@ -26,7 +26,6 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const token = this.authService.getToken();
 
-    // Clone request to add token if it exists
     let cloned = req;
     if (token) {
       cloned = req.clone({
