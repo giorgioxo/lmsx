@@ -81,4 +81,8 @@ export class AuthService {
         }),
       );
   }
+
+  getToken() {
+    return of();
+  }
 }
