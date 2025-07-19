@@ -9,64 +9,14 @@
       "password": "jorj123321"
     },
     {
-      "id": "2",
-      "firstName": "a",
-      "lastName": "s",
-      "username": "aaaaaaaa",
-      "email": "s",
-      "password": "Qwerty123@"
-    },
-    {
-      "id": "223",
-      "firstName": "a",
-      "lastName": "s",
+      "id": "1",
+      "firstName": "jorj",
+      "lastName": "jorjika",
       "username": "f",
-      "email": "s",
-      "password": "Qwerty123@"
-    },
-    {
-      "id": "1815",
-      "firstName": "giorgi",
-      "lastName": "khokhonishvili",
-      "username": "gx",
-      "email": "gx@gx.com",
-      "password": "gx123"
-    },
-    {
-      "id": "b5e8",
-      "firstName": "ასდ",
-      "lastName": "ასდ",
-      "username": "asdasd2qw",
-      "email": "aw@saa.a",
-      "password": "asdsssaddaswW22@"
-    },
-    {
-      "id": "73f0",
-      "firstName": "გიორგი",
-      "lastName": "ხოხონიშვილი",
-      "username": "giorgioxo",
-      "email": "giorgikhokhonishvili@gmail.com",
-      "password": "Paroli99@",
-      "repeatPassword": "Paroli99@"
-    },
-    {
-      "id": "ff2f",
-      "firstName": "ას",
-      "lastName": "სა",
-      "username": "11111111",
-      "email": "1@gm.com",
-      "password": "12345678@wW",
-      "repeatPassword": "12345678@wW"
-    },
-    {
-      "id": "46ae",
-      "firstName": "გიო",
-      "lastName": "ხიო",
-      "username": "xioxioxio",
-      "email": "xio@xio.com",
-      "password": "Xioxioxio1!",
-      "repeatPassword": "Xioxioxio1!"
+      "email": "jorj1@hm.com",
+      "password": "f"
     }
+   
   ],
   "notifications": [
     {
