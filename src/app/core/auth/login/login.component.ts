@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -33,8 +33,7 @@ import { ResetPasswordComponent } from '../reset-password/reset-password.compone
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  showPassword: boolean = false;
-
+  showPassword = false;
   showResetDialog = false;
 
   constructor(
@@ -75,8 +74,9 @@ export class LoginComponent implements OnInit {
     const { username, password, rememberMe } = this.loginForm.value;
 
     this.authService.login(username, password).subscribe({
-      next: (users) => {
-        if (users.length) {
+      next: (res) => {
+        // თუ წარმატებული ლოგინი
+        if (res && res.accessToken) {
           this.notification.showSuccess('წარმატებით შეხვედი!');
           this.router.navigate(['/dashboard']);
 
