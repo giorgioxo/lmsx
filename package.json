@@ -7,8 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:lmsx": "node dist/lmsx/server/server.mjs",
-    "start:json-server": "json-server --watch db.json --port 3000"
+    "serve:ssr:lmsx": "node dist/lmsx/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -27,8 +26,6 @@
     "@ionic/angular": "^8.6.4",
     "@tailwindcss/cli": "^4.1.11",
     "express": "^4.18.2",
-    "lucide": "^0.525.0",
-    "lucide-angular": "^0.525.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -42,7 +39,6 @@
     "@types/node": "^18.18.0",
     "autoprefixer": "^10.4.21",
     "jasmine-core": "~5.5.0",
-    "json-server": "^1.0.0-beta.3",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",

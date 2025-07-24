@@ -77,7 +77,6 @@ export class RegisterComponent implements OnInit {
       { validators: passwordMatchValidator },
     );
   }
-
   register() {
     if (this.registerForm.invalid) return;
 
@@ -89,7 +88,7 @@ export class RegisterComponent implements OnInit {
         this.notification.showSuccess('თქვენ წარმატებით დარეგისტრირდით');
       },
       error: (err) => {
-        this.notification.showError('არასწორი კრედენტიალები');
+        this.notification.showError('რეგისტრაციის შეცდომა');
         console.error('რეგისტრაციის შეცდომა', err);
       },
     });

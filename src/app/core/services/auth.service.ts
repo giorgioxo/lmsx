@@ -7,49 +7,40 @@ import { UserRegister } from '../models/auth.interface';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private currentUserKey = 'currentUser';
-  private baseUrl = 'http://localhost:3000/';
+  private baseUrl = 'http://localhost:3000/api/auth'; // აქ Base URL დაავარებელი
+
   constructor(private http: HttpClient) {}
 
+  register(user: UserRegister): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, user);
+  }
+
   login(username: string, password: string): Observable<any> {
-    return this.http
-      .get<any>(
-        `${this.baseUrl}users?username=${username}&password=${password}`,
-      )
-      .pipe(
-        tap((users) => {
-          if (users.length) {
-            localStorage.setItem('currentUser', JSON.stringify(username[0]));
-          }
-        }),
-      );
+    return this.http.post(`${this.baseUrl}/login`, { username, password });
   }
 
   logout() {
-    localStorage.removeItem(this.currentUserKey);
+    localStorage.removeItem('currentUser');
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.currentUserKey);
+    return !!localStorage.getItem('currentUser');
   }
 
   getCurrentUser() {
-    const userJson = localStorage.getItem(this.currentUserKey);
+    const userJson = localStorage.getItem('currentUser');
     return userJson ? JSON.parse(userJson) : null;
-  }
-
-  register(user: UserRegister): Observable<UserRegister> {
-    return this.http.post<UserRegister>(`${this.baseUrl}users`, user);
   }
 
   checkUsernameExists(username: string): Observable<boolean> {
     return this.http
-      .get<any[]>(`http://localhost:3000/users?username=${username}`)
+      .get<any[]>(`${this.baseUrl}/check-username?username=${username}`)
       .pipe(map((users) => users.length > 0));
   }
 
   checkEmailExists(email: string): Observable<boolean> {
     return this.http
-      .get<any[]>(`http://localhost:3000/users?email=${email}`)
+      .get<any[]>(`${this.baseUrl}/check-email?email=${email}`)
       .pipe(map((users) => users.length > 0));
   }
 
