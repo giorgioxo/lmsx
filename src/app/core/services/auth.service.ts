@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
+import { environment } from '../../../environment';
+
+import { Observable, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+
 import { UserRegister } from '../models/auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000/api/auth';
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -15,15 +18,17 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, { username, password }).pipe(
-      map((res: any) => {
-        // ტოკენების და მომხმარებლის ინფოს შენახვა localStorage-ში
-        localStorage.setItem('accessToken', res.accessToken);
-        localStorage.setItem('refreshToken', res.refreshToken);
-        localStorage.setItem('currentUser', JSON.stringify(res.user));
-        return res;
-      }),
-    );
+    return this.http
+      .post(`${this.baseUrl}/auth/login`, { username, password })
+      .pipe(
+        map((res: any) => {
+          // ტოკენების და მომხმარებლის ინფოს შენახვა localStorage-ში
+          localStorage.setItem('accessToken', res.accessToken);
+          localStorage.setItem('refreshToken', res.refreshToken);
+          localStorage.setItem('currentUser', JSON.stringify(res.user));
+          return res;
+        }),
+      );
   }
 
   logout() {

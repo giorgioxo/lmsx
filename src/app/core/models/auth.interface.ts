@@ -6,3 +6,15 @@ export interface UserRegister {
   email: string;
   password: string;
 }
+
+export interface UserSuccessfullyLogin {
+  accessToken: string;
+  refreshToken: string;
+  user: UserLogin;
+}
+
+export interface UserLogin {
+  _id: string;
+  username: string;
+  email: string;
+}
