@@ -26,6 +26,12 @@ import {
   usernameValidator,
 } from '../../../shared/validators/auth.validator';
 import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
+import { Store } from '@ngrx/store';
+import {
+  selectRegisterError,
+  selectRegisterLoading,
+  selectRegisterUser,
+} from '../../../store/selectors';
 
 @Component({
   selector: 'lmsx-register',
@@ -52,11 +58,23 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private notification: NotificationService,
+    private store: Store,
   ) {
     addIcons({ eyeOutline, eyeOffOutline });
   }
 
   ngOnInit(): void {
+    this.store.select(selectRegisterUser).subscribe((user) => {
+      console.log('registeredNGRXUSER', user);
+    });
+    this.store.select(selectRegisterLoading).subscribe((loading) => {
+      console.log('Loading status:', loading);
+    });
+
+    this.store.select(selectRegisterError).subscribe((error) => {
+      console.log('Error:', error);
+    });
+
     this.registerForm = this.fb.group(
       {
         firstName: ['', [Validators.required, georgianNameValidator()]],
