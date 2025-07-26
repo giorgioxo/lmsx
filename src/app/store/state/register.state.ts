@@ -1,7 +1,5 @@
-import { UserRegister } from '../../core/models/auth.interface';
-
 export interface RegisterState {
-  register: UserRegister | null;
+  message: string | null;
   loading: boolean;
   error: string | null;
 }
