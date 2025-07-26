@@ -6,7 +6,7 @@ export const selectRegisterState =
 
 export const selectRegisterUser = createSelector(
   selectRegisterState,
-  (state) => state.register,
+  (state) => state.message,
 );
 
 export const selectRegisterLoading = createSelector(

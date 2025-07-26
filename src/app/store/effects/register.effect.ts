@@ -14,7 +14,7 @@ export class RegisterEffects {
       ofType(RegisterAction),
       mergeMap(({ user }) =>
         this.authService.register(user).pipe(
-          map((response) => registerSuccess({ user: response })),
+          map((response) => registerSuccess({ message: response.message })),
           catchError((error) =>
             of(
               registerFailure({

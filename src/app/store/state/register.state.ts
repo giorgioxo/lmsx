@@ -1,9 +1,5 @@
 export interface RegisterState {
-  register: UserRegister | null;
+  message: string | null;
   loading: boolean;
   error: string | null;
-}
-
-export interface UserRegister {
-  info: string;
 }

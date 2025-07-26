@@ -3,23 +3,23 @@ import { RegisterState } from '../state';
 import { registerFailure, registerSuccess } from '../actions';
 
 export const initialState: RegisterState = {
-  register: null,
-  loading: true,
+  message: null,
+  loading: false,
   error: null,
 };
 
 export const registerReducer = createReducer(
   initialState,
 
-  on(registerSuccess, (state, { user }) => ({
+  on(registerSuccess, (state, { message }) => ({
     ...state,
-    register: user,
-    loading: true,
+    message,
+    loading: false,
     error: null,
   })),
   on(registerFailure, (state, { error }) => ({
     ...state,
-    loading: true,
+    loading: false,
     error,
   })),
 );
