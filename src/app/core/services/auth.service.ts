@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment';
 
 import { Observable, throwError } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { UserRegister } from '../models/auth.interface';
 
@@ -21,12 +21,10 @@ export class AuthService {
     return this.http
       .post(`${this.baseUrl}/auth/login`, { username, password })
       .pipe(
-        map((res: any) => {
-          // ტოკენების და მომხმარებლის ინფოს შენახვა localStorage-ში
+        tap((res: any) => {
           localStorage.setItem('accessToken', res.accessToken);
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('currentUser', JSON.stringify(res.user));
-          return res;
         }),
       );
   }
