@@ -1,13 +1,15 @@
-import { Injectable, viewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { environment } from '../../../environment';
+
+import { Observable, throwError } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
 import { UserRegister } from '../models/auth.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private currentUserKey = 'currentUser';
-  private baseUrl = 'http://localhost:3000/api/auth'; // აქ Base URL დაავარებელი
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -16,20 +18,40 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, { username, password });
+    return this.http
+      .post(`${this.baseUrl}/auth/login`, { username, password })
+      .pipe(
+        map((res: any) => {
+          // ტოკენების და მომხმარებლის ინფოს შენახვა localStorage-ში
+          localStorage.setItem('accessToken', res.accessToken);
+          localStorage.setItem('refreshToken', res.refreshToken);
+          localStorage.setItem('currentUser', JSON.stringify(res.user));
+          return res;
+        }),
+      );
   }
 
   logout() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('currentUser');
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('currentUser');
+    return !!localStorage.getItem('accessToken');
   }
 
   getCurrentUser() {
     const userJson = localStorage.getItem('currentUser');
     return userJson ? JSON.parse(userJson) : null;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refreshToken');
   }
 
   checkUsernameExists(username: string): Observable<boolean> {
@@ -48,7 +70,7 @@ export class AuthService {
     usernameOrEmail: string,
     enteredOtp: string,
     newPassword: string,
-  ) {
+  ): Observable<any> {
     const correctOtp = '1121';
     if (enteredOtp !== correctOtp) {
       return throwError(() => `არასწორი კოდი`);
@@ -60,20 +82,16 @@ export class AuthService {
       : `username=${usernameOrEmail}`;
 
     return this.http
-      .get<UserRegister[]>(`${this.baseUrl}users?${queryParam}`)
+      .get<UserRegister[]>(`${this.baseUrl}/users?${queryParam}`)
       .pipe(
         map((users) => users[0]),
         switchMap((user) => {
           if (!user) return throwError(() => `მომხმარებელი ვერ მოიძებნა`);
           return this.http.patch<UserRegister>(
-            `${this.baseUrl}users/${user.id}`,
+            `${this.baseUrl}/users/${user._id}`,
             { password: newPassword },
           );
         }),
       );
-  }
-
-  getToken() {
-    return of();
   }
 }
