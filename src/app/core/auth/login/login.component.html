@@ -99,7 +99,7 @@
 
 <lmsx-reset-password
   *ngIf="showResetDialog"
-  (passwordResetDone)="closeResetPasswordDialog()"
+  (close)="closeResetPasswordDialog()"
 >
   <lmsx-dialogs
     *ngIf="showResetDialog"

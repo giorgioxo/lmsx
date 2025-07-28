@@ -102,11 +102,12 @@ export class LoginComponent implements OnInit {
   }
 
   openResetPasswordDialog() {
-    this.showResetDialog = true;
+    this.showResetDialog = !this.showResetDialog;
     console.log('2jer reseti');
   }
 
   closeResetPasswordDialog() {
-    this.showResetDialog = false;
+    this.showResetDialog = !this.showResetDialog;
+    console.log('wqei reset closeze');
   }
 }
