@@ -22,17 +22,18 @@ export class DialogsComponent {
   @Input() title: string = '';
   @Input() showButton: boolean = false;
 
-  @Output() closed = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
   @Output() confirmed = new EventEmitter<void>();
 
   @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
-
+  constructor() {
+    console.log('chavitvirte');
+  }
   isChecked = false;
   isScrolledBottom = false;
 
   onClose() {
-    this.closed.emit();
-    console.log('sadqaw');
+    this.close.emit();
   }
 
   onConfirm() {

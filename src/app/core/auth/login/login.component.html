@@ -97,17 +97,14 @@
   </div>
 </div>
 
-<lmsx-dialogs
-  *ngIf="showResetDialog"
-  (closed)="closeResetPasswordDialog()"
-  [showCheckbox]="false"
-  [showButton]="false"
->
 <lmsx-reset-password
-
-(passwordResetDone)="closeResetPasswordDialog()"
-></lmsx-reset-password>
-
-</lmsx-dialogs>
-
-
+  *ngIf="showResetDialog"
+  (close)="closeResetPasswordDialog()"
+>
+  <lmsx-dialogs
+    *ngIf="showResetDialog"
+    (close)="closeResetPasswordDialog()"
+    [showCheckbox]="false"
+    [showButton]="false"
+  ></lmsx-dialogs>
+</lmsx-reset-password>

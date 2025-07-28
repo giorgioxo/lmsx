@@ -228,7 +228,7 @@
           *ngIf="showDialog"
           [title]="dialogTitle"
           [confirmText]="'ვეთანხმები'"
-          (closed)="closeDialog()"
+          (close)="closeDialog()"
           (confirmed)="acceptTerms()"
         >
           <ng-container *ngIf="dialogType === 'terms'">

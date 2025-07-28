@@ -31,6 +31,8 @@ export class ResetPasswordComponent implements OnInit {
   step: 'verifyUser' | 'verifyOtp' | 'resetPassword' = 'verifyUser';
   dialogTitle = 'ანგარიშის აღდგენა';
 
+  isDialogVisible = true;
+
   constructor(
     private fb: FormBuilder,
     private notification: NotificationService,
@@ -108,9 +110,11 @@ export class ResetPasswordComponent implements OnInit {
           this.notification.showError(errorMessage);
         },
       });
-    this.passwordResetDone.emit();
   }
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+  onClose() {
+    this.isDialogVisible = false;
   }
 }
