@@ -75,7 +75,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe({
       next: (res) => {
-        // თუ წარმატებული ლოგინი
         if (res && res.accessToken) {
           this.notification.showSuccess('წარმატებით შეხვედი!');
           this.router.navigate(['/dashboard']);
@@ -104,6 +103,7 @@ export class LoginComponent implements OnInit {
 
   openResetPasswordDialog() {
     this.showResetDialog = true;
+    console.log('2jer reseti');
   }
 
   closeResetPasswordDialog() {
