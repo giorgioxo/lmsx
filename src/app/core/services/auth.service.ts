@@ -92,4 +92,8 @@ export class AuthService {
         }),
       );
   }
+
+  getAllUser(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/auth/users`);
+  }
 }
