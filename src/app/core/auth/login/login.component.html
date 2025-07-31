@@ -108,3 +108,5 @@
     [showButton]="false"
   ></lmsx-dialogs>
 </lmsx-reset-password>
+<button (click)="refresh()">Refresh Userააs</button>
+<li *ngFor="let user of users$ | async; trackBy: trackByName">{{user.name}}</li>

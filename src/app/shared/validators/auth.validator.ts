@@ -10,7 +10,7 @@ import { debounceTime, map, Observable, of, switchMap } from 'rxjs';
 export function georgianNameValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
-    if (value && !/^[ა-ჰ]+$/.test(value)) {
+    if (value && !/^[a-zA-Z]+$/.test(value)) {
       return { invalidGeorgianName: true };
     }
     return null;

@@ -15,6 +15,7 @@ import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 import { DialogsComponent } from '../../../shared/dialogs/dialogs.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lmsx-login',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
   showResetDialog = false;
-
+  users$: Observable<any[]>;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -63,6 +64,15 @@ export class LoginComponent implements OnInit {
         });
       }
     }
+    this.users$ = this.authService.getAllUser();
+  }
+  refresh() {
+    this.users$ = this.authService.getAllUser();
+  }
+
+  trackByName(_id: number, user: any): string {
+    console.log('check if it works', user.name);
+    return user.name;
   }
 
   login() {
