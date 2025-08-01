@@ -70,11 +70,6 @@ export class LoginComponent implements OnInit {
     this.users$ = this.authService.getAllUser();
   }
 
-  trackByName(_id: number, user: any): string {
-    console.log('check if it works', user.name);
-    return user.name;
-  }
-
   login() {
     if (this.loginForm.invalid) {
       this.notification.showError('გთხოვთ შეავსოთ ყველა ველი');
