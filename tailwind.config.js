@@ -1,12 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-
-// Admin panel ფერები
 const colors = {
-  primary: '#2F7DC2', // ლურჯი მთავარი ფერი
-  secondary: '#F3F3F3', // ღია ნაცრისფერი
-  accent: '#FF5722', // აქცენტის ფერი
-  dark: '#222222', // მუქი ტექსტისთვის
-  light: '#FFFFFF', // თეთრი
+  primary: '#2F7DC2',
+  secondary: '#F3F3F3',
+  accent: '#FF5722',
+  dark: '#222222',
+  light: '#FFFFFF',
   textGray: '#29292E',
 };
 
@@ -17,28 +15,26 @@ const screens = {
   mobile: '340px',
 };
 
-// custom spacing — დავამატე მეტი მნიშვნელობები
 const spacing = {
   xs: '4px',
   sm: '8px',
-  md: '12px', // ახალი
+  md: '12px',
   base: '16px',
-  lg: '20px', // ახალი
+  lg: '20px',
   xl: '24px',
-  '2xl': '28px', // ახალი
-  '3xl': '32px', // ახალი
+  '2xl': '28px',
+  '3xl': '32px',
 };
 
-// custom font sizes — დავამატე კიდე ზომები
 const fontSize = {
-  xs: ['10px', { lineHeight: '14px' }], // პატარა ტექსტი
+  xs: ['10px', { lineHeight: '14px' }],
   sm: ['12px', { lineHeight: '16px' }],
   base: ['14px', { lineHeight: '20px' }],
-  md: ['16px', { lineHeight: '22px' }], // ახალი
+  md: ['16px', { lineHeight: '22px' }],
   lg: ['18px', { lineHeight: '24px' }],
   xl: ['24px', { lineHeight: '32px' }],
-  '2xl': ['28px', { lineHeight: '36px' }], // ახალი
-  '3xl': ['32px', { lineHeight: '40px' }], // ახალი
+  '2xl': ['28px', { lineHeight: '36px' }],
+  '3xl': ['32px', { lineHeight: '40px' }],
 };
 
 module.exports = {
