@@ -1,0 +1,9 @@
+# .gitlab-ci.yml
+
+stages:
+  - test
+
+test-job:
+  stage: test
+  script:
+    - echo "its gilab"
