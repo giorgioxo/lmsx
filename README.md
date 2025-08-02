@@ -1,1 +1,3 @@
 # created mirroring ssh- added deply token on github ...
+
+# removed protected branches. step
