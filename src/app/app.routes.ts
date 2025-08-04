@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './core/auth/login/login.component';
 import { LayoutsComponent } from './shared/layouts/layouts.component';
 import { RegisterComponent } from './core/auth/register/register.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +13,13 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/dashboard/dashboard.route').then(
             (m) => m.DASHBOARD_ROUTES,
+          ),
+      },
+      {
+        path: 'calendar',
+        loadChildren: () =>
+          import('./features/calendar/calendar.route').then(
+            (m) => m.CALENDAR_ROUTES,
           ),
       },
     ],
