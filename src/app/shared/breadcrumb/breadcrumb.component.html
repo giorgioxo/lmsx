@@ -1,0 +1,24 @@
+<nav class="text-sm px-6 py-4">
+    <ng-container *ngIf="breadcrumbs$ | async as breadcrumbs">
+      <ul class="flex items-center gap-2 text-white font-medium">
+        <ng-container *ngFor="let crumb of breadcrumbs; let last = last">
+          <li class="flex items-center">
+            <ng-container *ngIf="!last">
+              <a
+                [routerLink]="crumb.url"
+                class=" transition hover:text-primary"
+              >
+                {{ crumb.title }}
+              </a>
+              <span class="mx-2 text-gray-400">›</span>
+            </ng-container>
+  
+            <ng-container *ngIf="last">
+              <span class="text-gray-300">{{ crumb.title }}</span>
+            </ng-container>
+          </li>
+        </ng-container>
+      </ul>
+    </ng-container>
+  </nav>
+  

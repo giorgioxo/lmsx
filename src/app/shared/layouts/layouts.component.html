@@ -1,10 +1,18 @@
+<div class="min-h-screen flex bg-primary-gradient text-white">
+  <aside class="w-64 bg-[#061430] flex-shrink-0 p-4">
+    <lmsx-sidebar></lmsx-sidebar>
+  </aside>
 
-<!-- layout.component.html -->
-<lmsx-navbar></lmsx-navbar>
-<div class="layout">
-  <lmsx-sidebar></lmsx-sidebar>
-  <main class="content">
-    <router-outlet></router-outlet> <!-- აქ ჩანაცვლდება child კომპონენტები -->
-  </main>
+  <div class="flex-1 flex flex-col">
+    <header class="h-16 bg-transparent pl-4 pr-6 flex items-center border-b border-white/10">
+      <lmsx-navbar></lmsx-navbar>
+    </header>
+
+    <main class="flex-1 p-6 overflow-y-auto">
+      <lmsx-breadcrumb></lmsx-breadcrumb>
+      <router-outlet></router-outlet>
+    </main>
+
+    <lmsx-footer class="p-4 text-sm text-center border-t border-white/10">Footer</lmsx-footer>
+  </div>
 </div>
-<lmsx-footer></lmsx-footer>
