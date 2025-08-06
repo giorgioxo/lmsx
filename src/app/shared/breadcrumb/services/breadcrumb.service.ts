@@ -17,7 +17,6 @@ export class BreadcrumbService {
         const root = this.router.routerState.snapshot.root;
         const breadcrumbs = this.buildBreadcrumbs(root);
         this.breadcrumbSource$.next(breadcrumbs);
-        console.log(`chemi ${root}`, `daaa ${breadcrumbs}`);
       });
   }
 
@@ -28,8 +27,6 @@ export class BreadcrumbService {
   ) {
     const routeURL = route.url.map((seg) => seg.path).join('/');
     const nextUrl = routeURL ? `${url}/${routeURL}` : url;
-
-    console.log(`ეს ცალკე კიდე ${routeURL}`, `da esesc calke ${nextUrl}`);
 
     if (route.data && route.data['title']) {
       breadcrumbs.push({

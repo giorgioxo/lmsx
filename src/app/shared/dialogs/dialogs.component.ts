@@ -26,9 +26,7 @@ export class DialogsComponent {
   @Output() confirmed = new EventEmitter<void>();
 
   @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
-  constructor() {
-    console.log('chavitvirte');
-  }
+  constructor() {}
   isChecked = false;
   isScrolledBottom = false;
 
