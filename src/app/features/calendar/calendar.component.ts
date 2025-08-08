@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CalendarService } from './services/calendar.service';
-import { AuthService } from '../../core/services/auth.service';
+import { BehaviorSubject } from 'rxjs';
+import { CalendarEvent } from './models/calendar.interface';
 
 @Component({
   selector: 'lmsx-calendar',
@@ -9,11 +10,15 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
-export class CalendarComponent {
-  constructor(private calendarService: CalendarService) {
-    this.calendarService.getAllEvent().subscribe({
-      next: (events) => console.log('Success:', events),
-      error: (error) => console.error('Error:', error),
+export class CalendarComponent implements OnInit {
+  private events$ = new BehaviorSubject<CalendarEvent[]>([]);
+  event$ = this.events$.asObservable();
+
+  constructor(private calendarService: CalendarService) {}
+
+  ngOnInit(): void {
+    this.calendarService.getAllEvent().subscribe((event) => {
+      this.events$.next(event);
     });
   }
 }
