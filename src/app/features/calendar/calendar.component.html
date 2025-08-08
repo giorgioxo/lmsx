@@ -1,1 +1,5 @@
-<p>calendar works!</p>
+<ul *ngIf="event$ | async as events">
+    <ng-template ngFor let-ev [ngForOf]="events">
+        {{ev.title}}
+    </ng-template>
+</ul>

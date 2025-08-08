@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment';
 
@@ -6,12 +6,16 @@ import { Observable, throwError } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { UserRegister } from '../models/auth.interface';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object,
+  ) {}
 
   register(user: UserRegister): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/register`, user);
@@ -45,9 +49,11 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('accessToken');
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('accessToken');
+    }
+    return null;
   }
-
   getRefreshToken(): string | null {
     return localStorage.getItem('refreshToken');
   }
