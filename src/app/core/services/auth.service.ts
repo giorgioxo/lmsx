@@ -54,6 +54,7 @@ export class AuthService {
     }
     return null;
   }
+
   getRefreshToken(): string | null {
     return localStorage.getItem('refreshToken');
   }

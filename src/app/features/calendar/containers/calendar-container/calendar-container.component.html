@@ -1,10 +1,20 @@
-@if (calendarEvent$ | async; as events) {
-    <ul>
-      @for (event of events; track event._id) {
-        <li>{{ event.title }}</li>
-      }
+<div class="p-4 max-w-xl mx-auto space-y-4">
+   
+    <input
+      type="text"
+      placeholder="ძებნა ღონისძიებებში..."
+      class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+      (input)="searchEvent$.next($any($event.target).value)"
+    />
+  
+    <ul class="space-y-2 max-h-96 overflow-auto">
+      <li
+        *ngFor="let event of filteredEvents | async"
+        class="p-3 border border-gray-300 rounded-md bg-primary/10 text-primary font-semibold"
+      >
+        {{ event.title }}
+      </li>
     </ul>
-  }
-
-
-  <lmsx-calendar-grid></lmsx-calendar-grid>
+  </div>
+  
+<lmsx-calendar-grid></lmsx-calendar-grid>
