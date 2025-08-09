@@ -1,0 +1,10 @@
+@if (calendarEvent$ | async; as events) {
+    <ul>
+      @for (event of events; track event._id) {
+        <li>{{ event.title }}</li>
+      }
+    </ul>
+  }
+
+
+  <lmsx-calendar-grid></lmsx-calendar-grid>

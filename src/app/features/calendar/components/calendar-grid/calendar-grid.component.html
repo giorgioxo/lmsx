@@ -1,0 +1,9 @@
+<div class="grid grid-cols-6 grid-rows-6 gap-1 p-4 bg-white rounded-xl shadow-md max-w-xl mx-auto">
+    <div
+      *ngFor="let _ of cells; let i = index"
+      class="flex items-center justify-center border border-gray-300 rounded-md bg-primary/10 text-primary font-semibold text-sm select-none"
+    >
+      {{ i + 1 }}
+    </div>
+  </div>
+  

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutsComponent } from './layouts.component';
 import { DashboardComponent } from '../../features/dashboard/dashboard.component';
-import { CalendarComponent } from '../../features/calendar/calendar.component';
+import { CalendarContainerComponent } from '../../features/calendar/containers/calendar-container/calendar-container.component';
 import { TablesComponent } from '../../features/tables/tables.component';
 
 export const LAYOUT_ROUTES: Routes = [
@@ -25,7 +25,7 @@ export const LAYOUT_ROUTES: Routes = [
       {
         path: 'calendar',
         data: { title: 'Calendar' },
-        component: CalendarComponent,
+        component: CalendarContainerComponent,
       },
     ],
   },

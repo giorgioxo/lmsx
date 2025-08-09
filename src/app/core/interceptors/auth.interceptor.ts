@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(cloned).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log(
-          'AuthInterceptor: Error caught:',
+          'AuthInterceptor: Error caught: AEEEEEEEEEEEEEEEEEEEEEE',
           error.status,
           error.message,
         );
