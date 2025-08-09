@@ -67,7 +67,7 @@ export class ResetPasswordComponent implements OnInit {
     check$.subscribe((exists) => {
       if (exists) {
         this.notification.showSuccess('კოდი გაიგზავნა ელფოსტაზე');
-        // TODO აქ უნდა გავწერო otp call ფლოუ შემდეგში... რამე ბიბლიოთეკის გამოყენებით
+        // TODO OTP
         this.step = 'verifyOtp';
       } else {
         this.notification.showError('მომხარებელი არ მოიძებნა');

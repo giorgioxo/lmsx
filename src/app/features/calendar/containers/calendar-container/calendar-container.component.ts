@@ -10,14 +10,18 @@ import {
   startWith,
   Subject,
 } from 'rxjs';
-import { CalendarEvent } from '../../models/calendar.interface';
+import {
+  CalendarEvent,
+  CreateCalendarEvent,
+} from '../../models/calendar.interface';
 import { CommonModule } from '@angular/common';
 import { CalendarGridComponent } from '../../components/calendar-grid/calendar-grid.component';
+import { CalendarDialogComponent } from '../../components/calendar-dialog/calendar-dialog.component';
 
 @Component({
   selector: 'lmsx-calendar-container',
   standalone: true,
-  imports: [CommonModule, CalendarGridComponent],
+  imports: [CommonModule, CalendarGridComponent, CalendarDialogComponent],
   templateUrl: './calendar-container.component.html',
   styleUrl: './calendar-container.component.scss',
 })
@@ -27,6 +31,9 @@ export class CalendarContainerComponent implements OnInit {
   searchEvent$ = new BehaviorSubject<string>('');
   events = new BehaviorSubject<CalendarEvent[]>([]);
   filteredEvents: Observable<CalendarEvent[]>;
+
+  showDialog = false;
+  selectedEventForEdit = null;
 
   constructor(private calendarService: CalendarService) {}
 
@@ -57,5 +64,37 @@ export class CalendarContainerComponent implements OnInit {
         ),
       ),
     );
+  }
+
+  prevMonth() {
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth();
+    this.currentDate = new Date(year, month - 1, 1);
+  }
+
+  nextMonth() {
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth();
+    this.currentDate = new Date(year, month + 1, 1);
+  }
+
+  openDialog(eventData: CreateCalendarEvent | null = null) {
+    this.selectedEventForEdit = eventData || {
+      title: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+    };
+    this.showDialog = true;
+  }
+
+  closeDialog() {
+    this.showDialog = false;
+  }
+
+  saveEvent(eventData: CreateCalendarEvent) {
+    console.log('დატანილი ინფორმაცია:', eventData);
+    // აქ შეგიძლია სერვისის მოწოდება ან სხვა ლოგიკა
+    this.closeDialog();
   }
 }
