@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { CalendarComponent } from './calendar.component';
+import { CalendarContainerComponent } from '../calendar/containers/calendar-container/calendar-container.component';
 
 export const CALENDAR_ROUTES: Routes = [
   {
     path: '',
-    component: CalendarComponent,
+    component: CalendarContainerComponent,
   },
 ];
