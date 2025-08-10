@@ -1,10 +1,31 @@
-@if (calendarEvent$ | async; as events) {
-    <ul>
-      @for (event of events; track event._id) {
-        <li>{{ event.title }}</li>
-      }
-    </ul>
-  }
+<div class="flex justify-between max-w-xl mx-auto p-4">
+  <button (click)="prevMonth()" class="btn">წინა თვე</button>
+  <button (click)="nextMonth()" class="btn">შემდეგი თვე</button>
+  <button (click)="openDialog()" class="btn">ახალი ღონისძიების დამატება</button>
+</div>
+<div class="p-4 max-w-xl mx-auto space-y-4">
+    <input
+      type="text"
+      placeholder="ძებნა ღონისძიებებში..."
+      class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+      (input)="searchEvent$.next($any($event.target).value)"
+    />
+</div>
+<div class="font-semibold text-lg">
+  {{ currentDate | date: 'MMMM yyyy' }}
+</div>
+  
+  <lmsx-calendar-grid
+  [events]="filteredEvents | async"
+  [currentDate]="currentDate"
+></lmsx-calendar-grid>
 
 
-  <lmsx-calendar-grid></lmsx-calendar-grid>
+
+
+<lmsx-calendar-dialog
+  [visible]="showDialog"
+  [initialData]="selectedEventForEdit"
+  (close)="closeDialog()"
+  (save)="saveEvent($event)"
+></lmsx-calendar-dialog>

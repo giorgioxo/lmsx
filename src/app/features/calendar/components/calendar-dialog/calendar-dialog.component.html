@@ -1,1 +1,15 @@
-<p>calendar-dialog works!</p>
+<!-- calendar-dialog.component.html -->
+<lmsx-dialogs
+  [visible]="visible"
+  [title]="dialogTitle"
+  [confirmText]="confirmText"
+  (close)="onClose()"
+  (confirm)="onSave()"
+>
+  <form [formGroup]="dialogForm" class="space-y-4">
+    <input type="text" formControlName="title" placeholder="სათაური" class="input" />
+    <input type="date" formControlName="startDate" class="input" />
+    <input type="date" formControlName="endDate" class="input" />
+    <textarea formControlName="description" placeholder="აღწერა" class="input"></textarea>
+  </form>
+</lmsx-dialogs>

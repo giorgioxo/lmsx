@@ -21,6 +21,7 @@ export class DialogsComponent {
   @Input() confirmText: string = 'დადასტურება';
   @Input() title: string = '';
   @Input() showButton: boolean = false;
+  @Input() visible = false;
 
   @Output() close = new EventEmitter<void>();
   @Output() confirmed = new EventEmitter<void>();
