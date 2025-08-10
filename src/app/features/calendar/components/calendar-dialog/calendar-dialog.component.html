@@ -1,6 +1,6 @@
 <!-- calendar-dialog.component.html -->
 <lmsx-dialogs
-  [visible]="visible"
+  *ngIf="visibleDialog"
   [title]="dialogTitle"
   [confirmText]="confirmText"
   (close)="onClose()"

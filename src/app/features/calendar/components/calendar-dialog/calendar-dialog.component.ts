@@ -37,6 +37,7 @@ export class CalendarDialogComponent implements OnInit, OnChanges {
   dialogForm: FormGroup;
   dialogTitle = 'ახალი ღონისძიება';
   confirmText = 'შენახვა';
+  visibleDialog = false;
 
   constructor(private fb: FormBuilder) {}
 
