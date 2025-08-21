@@ -1,7 +1,5 @@
 export interface Board {
-  id: string;
-  title: string;
-  task: Table[];
+  table: Table[];
 }
 
 export interface Table {
