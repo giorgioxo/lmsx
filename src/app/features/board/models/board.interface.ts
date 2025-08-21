@@ -1,5 +1,5 @@
 export interface Board {
-  task: Table[];
+  table: Table[];
 }
 
 export interface Table {
