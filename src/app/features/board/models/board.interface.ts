@@ -1,13 +1,14 @@
-export interface Board {
-  table: Table[];
+export interface Task {
+  id: string;
+  title: string;
 }
 
 export interface Table {
   id: string;
   title: string;
-  task: Task[];
+  tasks: Task[]; // ✅ უნდა იყოს tasks
 }
-export interface Task {
-  id: string;
-  title: string;
+
+export interface BoardState {
+  tables: Table[]; // ✅ უნდა იყოს tables
 }

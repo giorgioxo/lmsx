@@ -1,17 +1,38 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Board, Task, Table } from '../board/models/board.interface';
+import { Task, Table, BoardState } from '../board/models/board.interface';
+import { BoardTableComponent } from './table/table.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'lmsx-board',
-  imports: [],
+  standalone: true,
+  imports: [BoardTableComponent, AsyncPipe],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
-  board = new BehaviorSubject<Board>({
-    table: [{ id: 'TODO', title: 'To Do', task: [] }],
+  boardState = new BehaviorSubject<BoardState>({
+    tables: [
+      { id: 'TODO', title: 'To do', tasks: [] },
+      { id: 'PROCESS', title: 'Process', tasks: [] },
+      { id: 'FINISH', title: 'Finish', tasks: [] },
+    ],
   });
 
-  board$ = this.board.asObservable();
+  board$ = this.boardState.asObservable();
+
+  addTask(tableId: string) {
+    const current = this.boardState.value;
+    const newTask: Task = { id: Date.now().toString(), title: 'New Task' };
+
+    const updated: BoardState = {
+      ...current,
+      tables: current.tables.map((t) =>
+        t.id === tableId ? { ...t, tasks: [...t.tasks, newTask] } : t,
+      ),
+    };
+
+    this.boardState.next(updated);
+  }
 }

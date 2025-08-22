@@ -1,6 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'lmsx-board-table',
+
+  standalone: true,
+  template: `<div class="bg-gray-100 p-3 rounded-xl shadow min-h-[200px]">
+    <h2 class="font-bold mb-2">{{ table.title }}</h2>
+
+    <button
+      class="bg-blue-500 text-white px-2 py-1 rounded text-sm mb-2"
+      (click)="addTask.emit()"
+    >
+      + Add Task
+    </button>
+
+    <ul>
+      @for (task of table.tasks; track task.id) {
+        <li class="bg-white rounded p-2 mb-2 shadow">{{ task.title }}</li>
+      }
+    </ul>
+  </div> `,
 })
-export class BoardTableComponent {}
+export class BoardTableComponent {
+  @Input() table!: { id: string; title: string; tasks: any[] };
+  @Output() addTask = new EventEmitter<void>();
+}

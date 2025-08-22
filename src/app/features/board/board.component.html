@@ -1,1 +1,11 @@
-<p>board works!</p>
+<div class="grid grid-cols-2 gap-4 p-4">
+    @if (board$ | async; as board) {
+      @for (table of board.tables; track table.id) {
+        <lmsx-board-table
+          [table]="table"
+          (addTask)="addTask(table.id)"
+        ></lmsx-board-table>
+      }
+    }
+  </div>
+  
