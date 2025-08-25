@@ -6,6 +6,11 @@
           (addTask)="addTask(table.id)"
         ></lmsx-board-table>
       }
-    }
+    }<div
+    class="bg-gray-100 min-w-[200px] h-fit flex flex-col items-center justify-center rounded-xl shadow cursor-pointer hover:bg-gray-200 transition-colors"
+    (click)="addBoard()"
+  >
+    <span class="text-primary font-semibold">+ Add Board</span>
+  </div>
   </div>
   

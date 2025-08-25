@@ -35,4 +35,20 @@ export class BoardComponent {
 
     this.boardState.next(updated);
   }
+  addBoard() {
+    const current = this.boardState.value;
+
+    const newTable: Table = {
+      id: `CUSTOM-${Date.now()}`,
+      title: 'Backlog', // default, შეგიძლია input–ითაც
+      tasks: [],
+    };
+
+    const updated: BoardState = {
+      ...current,
+      tables: [...current.tables, newTable],
+    };
+
+    this.boardState.next(updated);
+  }
 }
