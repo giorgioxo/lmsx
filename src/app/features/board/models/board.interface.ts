@@ -6,9 +6,8 @@ export interface Task {
 export interface Table {
   id: string;
   title: string;
-  tasks: Task[]; // ✅ უნდა იყოს tasks
+  tasks: Task[];
 }
-
 export interface BoardState {
-  tables: Table[]; // ✅ უნდა იყოს tables
+  tables: Table[];
 }
